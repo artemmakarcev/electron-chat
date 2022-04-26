@@ -1,18 +1,23 @@
 import React from 'react';
+import HomeView from './views/Home';
+import Navbar from './components/Navbar';
+
+import { HashRouter as Router, Route, Routes } from 'react-router-dom';
+// import {Link} from 'react-router-dom'
+// import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
 export default function App() {
-  // debugger
-  const title = 'Hello World';
-  const enhancedTitle = title + ' - React App! Auto reload';
-
-  const sendNotification = () => {
-    electron.notificationApi.sendNotification('This is my custom message!');
-  };
-
   return (
-    <>
-      <h1>{enhancedTitle}</h1>
-      <button onClick={sendNotification}>Send Notifiacation</button>
-    </>
+    <Router>
+      <Navbar />
+      <div className="content-wrapper">
+        <Routes>
+          <Route path="/settings" element={<h1>Settings</h1>} />
+          <Route path="/login" element={<h1>Login</h1>} />
+          <Route path="/register" element={<h1>Register</h1>} />
+          <Route path="/" element={<HomeView />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
