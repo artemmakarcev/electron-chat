@@ -1,6 +1,10 @@
 import React from 'react';
 
-export default function AvailableChats() {
+import { useNavigate } from 'react-router-dom';
+
+export default function AvailableChatsList() {
+const navigate = useNavigate();
+
   return (
     <div className="container-fluid">
       <div className="row mt-3">
@@ -14,7 +18,7 @@ export default function AvailableChats() {
             <div className="card-body">
               <h5 className="card-title">Chat 1</h5>
               <p className="card-text">Some Chat 1 Description</p>
-              <button onClick={() => {}} className="btn btn-outline-primary">
+              <button onClick={() => navigate('/chat/1')} className="btn btn-outline-primary">
                 Join Chat
               </button>
             </div>
@@ -25,7 +29,7 @@ export default function AvailableChats() {
             <div className="card-body">
               <h5 className="card-title">Chat 2</h5>
               <p className="card-text">Some Chat 2 Description</p>
-              <button onClick={() => {}} className="btn btn-outline-primary">
+              <button onClick={() => navigate('/chat/2')} className="btn btn-outline-primary">
                 Join Chat
               </button>
             </div>
@@ -36,7 +40,7 @@ export default function AvailableChats() {
             <div className="card-body">
               <h5 className="card-title">Chat 3</h5>
               <p className="card-text">Some Chat 3 Description</p>
-              <button onClick={() => {}} className="btn btn-outline-primary">
+              <button onClick={() => navigate('/chat/3')} className="btn btn-outline-primary">
                 Join Chat
               </button>
             </div>
@@ -47,7 +51,7 @@ export default function AvailableChats() {
             <div className="card-body">
               <h5 className="card-title">Chat 4</h5>
               <p className="card-text">Some Chat 4 Description</p>
-              <button onClick={() => {}} className="btn btn-outline-primary">
+              <button onClick={() => navigate('/chat/4')} className="btn btn-outline-primary">
                 Join Chat
               </button>
             </div>
