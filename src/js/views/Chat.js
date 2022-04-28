@@ -6,7 +6,7 @@ import ViewTitle from '../components/shared/ViewTitle';
 import ChatMessagesList from '../components/ChatMessagesList';
 
 export default function Chat() {
-  const {id} = useParams();
+  const { id } = useParams();
 
   return (
     <div className="row no-gutters fh">
@@ -14,7 +14,7 @@ export default function Chat() {
         <ChatUsersList />
       </div>
       <div className="col-9 fh">
-        <ViewTitle text={`Joined channel: ${id}`}/>
+        <ViewTitle text={`Joined channel: ${id}`} />
         <ChatMessagesList />
       </div>
     </div>
