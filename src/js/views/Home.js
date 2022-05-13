@@ -1,23 +1,27 @@
-import React,  {useEffect } from 'react';
+import React, { useEffect } from 'react';
 import JoinedChatsList from '../components/JoinedChatsList';
 import ViewTitle from '../components/shared/ViewTitle';
 import AvailableChatsList from '../components/AvailableChatsList';
 
-import { fetchChats } from '../api/chats';
- 
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchChats } from '../action/chats';
+
 export default function Home() {
+  const dispatch = useDispatch();
+  const chats = useSelector(({ chats }) => chats.items);
+
   useEffect(() => {
-    fetchChats()
-  }, []);
+    dispatch(fetchChats());
+  }, [dispatch]);
 
   return (
     <div className="row no-gutters fh">
       <div className="col-3 fh">
-        <JoinedChatsList />
+        <JoinedChatsList chats={chats} />
       </div>
       <div className="col-9 fh">
         <ViewTitle text="Choose your channel" />
-        <AvailableChatsList />
+        <AvailableChatsList chats={chats} />
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Provider } from 'react-redux';
+import { store } from './store';
 
 import HomeView from './views/Home';
 import ChatView from './views/Chat';
@@ -9,14 +10,9 @@ import RegisterView from './views/Register';
 import SettingsView from './views/Settings';
 
 import Navbar from './components/Navbar';
-
-import configureStore from './store';
-
 import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 // import {Link} from 'react-router-dom'
 // import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-
-const store = configureStore()
 
 export default function App() {
   return (
