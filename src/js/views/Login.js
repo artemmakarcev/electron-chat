@@ -1,39 +1,35 @@
-import React from 'react'
 
-export default function Login(){
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
+import LoginForm from '../components/LoginForm';
+import RegisterForm from '../components/RegisterForm';
+
+export default function Login() {
+  const [isLoginView, setIsLogin] = useState(true);
+  const user = useSelector(({auth}) => auth.user);
+  const isChecking = useSelector(({auth}) => auth.isChecking);
+
+  const optInText = isLoginView ?
+    ['Need an account?', 'Register'] :
+    ['Already registered?', 'Login']
+
+  if (isChecking) {
+    return <h1>Checking the state...</h1>
+  }
+
+  if (user) {
+    return <Navigate to="/home" />
+  }
+
   return (
     <div className="centered-view">
       <div className="centered-container">
-        <form onSubmit={() => {}} className="centered-container-form">
-          <div className="header">Welcome here!</div>
-          <div className="subheader">Login and chat with other people!</div>
-          <div className="form-container">
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                className="form-control"
-                id="email"
-                name="email"
-                aria-describedby="emailHelp" />
-              <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
-            </div>
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                name="password"
-                className="form-control"
-                id="password" />
-            </div>
-            { false && <div className="alert alert-danger small">Some error</div>}
-            <button type="submit" className="btn btn-outline-primary">Login</button>
-          </div>
-        </form>
-        <small className="form-text text-muted mt-2">Already registered?
+        { isLoginView ? <LoginForm /> : <RegisterForm /> }
+        <small className="form-text text-muted mt-2">{optInText[0]}
           <span
-            onClick={() => {}}
-            className="btn-link ml-2">Login</span></small>
+            onClick={() => setIsLogin(!isLoginView)}
+            className="btn-link ml-2">{optInText[1]}</span></small>
       </div>
     </div>
   )

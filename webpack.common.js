@@ -34,7 +34,11 @@ module.exports = {
           // Compiles Sass to CSS
           'sass-loader',
         ],
-      }
+      },
+      {
+        test: /\.node$/,
+        loader: "node-loader",
+      },
     ]
   },
   plugins: [new Dotenv()],

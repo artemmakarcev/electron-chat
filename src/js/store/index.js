@@ -1,30 +1,41 @@
-/* import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk'
-
-export default function configureStore() {
-  // const middlewares = [thunk];
-
-  const store = createStore(() => {
-    return {
-      message: 'Hello World!',
-      data1: 'Sun Mar 26 2023 17:01:36 GMT+0500 (Yekaterinburg Standard Time)',
-      data2: 'Sun Feb 13 2022 08:20:35 GMT+0500 (Yekaterinburg Standard Time)',
-    };
-  }, applyMiddleware(thunk));
-  return store;
-} */
-
-import { configureStore } from '@reduxjs/toolkit';
-import { composeWithDevTools } from 'redux-devtools-extension';
+/* import { configureStore } from '@reduxjs/toolkit';
 import { applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
+import thunkMiddleware from 'redux-thunk';
+import authReducer from '../reducers/authReducer';
 import chatReducer from '../reducers/chatReducer';
 
 const rootRedicer = {
   reducer: {
     chats: chatReducer,
+    auth: authReducer,
   },
 };
 
+// const middlewares = [thunkMiddleware];
+
 //combineReducers автоматически применяется в configureStore
-export const store = configureStore(rootRedicer, composeWithDevTools(applyMiddleware(thunk)));
+// export const store = configureStore(rootRedicer, applyMiddleware(...middlewares));
+export const store = configureStore(rootRedicer, applyMiddleware(thunkMiddleware));
+ */
+
+
+
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import authReducer from '../reducers/authReducer';
+import chatReducer from '../reducers/chatReducer';
+
+export default function configureStore() {
+  const middlewares = [
+    thunkMiddleware
+  ];
+
+  const store = createStore(
+    combineReducers({
+      chats: chatReducer,
+      auth: authReducer
+    }),
+    applyMiddleware(...middlewares));
+
+  return store;
+}

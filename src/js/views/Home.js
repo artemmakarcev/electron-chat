@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import JoinedChatsList from '../components/JoinedChatsList';
-import ViewTitle from '../components/shared/ViewTitle';
 import AvailableChatsList from '../components/AvailableChatsList';
+import ViewTitle from '../components/shared/ViewTitle';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchChats } from '../action/chats';
+import { fetchChats } from '../actions/chats';
 
 export default function Home() {
   const dispatch = useDispatch();
