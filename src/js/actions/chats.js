@@ -5,5 +5,5 @@ export const fetchChats = () => (dispatch) =>
     dispatch({
       type: 'CHATS_FETCH_SUCCESS',
       chats,
-    })
+    }),
   );

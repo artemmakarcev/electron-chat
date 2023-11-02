@@ -18,24 +18,21 @@ const rootRedicer = {
 export const store = configureStore(rootRedicer, applyMiddleware(thunkMiddleware));
  */
 
-
-
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import authReducer from '../reducers/authReducer';
 import chatReducer from '../reducers/chatReducer';
 
 export default function configureStore() {
-  const middlewares = [
-    thunkMiddleware
-  ];
+  const middlewares = [thunkMiddleware];
 
   const store = createStore(
     combineReducers({
       chats: chatReducer,
-      auth: authReducer
+      auth: authReducer,
     }),
-    applyMiddleware(...middlewares));
+    applyMiddleware(...middlewares),
+  );
 
   return store;
 }

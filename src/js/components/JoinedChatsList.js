@@ -5,17 +5,17 @@ import { useNavigate } from 'react-router-dom';
 export default function JoinedChatsList({ chats }) {
   const navigate = useNavigate();
   return (
-    <div className="list-container">
+    <div className='list-container'>
       <ChatSearch />
-      <ul className="items">
+      <ul className='items'>
         {chats.map((chat) => (
-          <li key={chat.id} onClick={() => navigate(`/chat/${chat.id}`)} className="item">
-            <div className="item-status">
-              <img src="./src/assets/chat-avatar_1.png" alt="Retail Admin" />
-              <span className="status online"></span>
+          <li key={chat.id} onClick={() => navigate(`/chat/${chat.id}`)} className='item'>
+            <div className='item-status'>
+              <img src='./src/assets/chat-avatar_1.png' alt='Retail Admin' />
+              <span className='status online'></span>
             </div>
-            <p className="name-time">
-              <span className="name mr-2">{chat.name}</span>
+            <p className='name-time'>
+              <span className='name mr-2'>{chat.name}</span>
             </p>
           </li>
         ))}
