@@ -15,12 +15,12 @@ export default function Home() {
   }, [dispatch]);
 
   return (
-    <div className='row no-gutters fh'>
-      <div className='col-3 fh'>
+    <div className="row no-gutters fh">
+      <div className="col-3 fh">
         <JoinedChatsList chats={chats} />
       </div>
-      <div className='col-9 fh'>
-        <ViewTitle text='Choose your channel' />
+      <div className="col-9 fh">
+        <ViewTitle text="Choose your channel" />
         <AvailableChatsList chats={chats} />
       </div>
     </div>

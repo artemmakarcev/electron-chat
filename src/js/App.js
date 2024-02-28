@@ -8,7 +8,7 @@ import LoginView from './views/Login';
 import SettingsView from './views/Settings';
 
 import Navbar from './components/Navbar';
-import { HashRouter as Router, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 // import {Link} from 'react-router-dom'
 // import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
@@ -23,17 +23,17 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <Router>
+      <HashRouter>
         <Navbar />
-        <div className='content-wrapper'>
+        <div className="content-wrapper">
           <Routes>
-            <Route path='/' exact element={<LoginView />} />
-            <Route path='/home' element={<HomeView />} />
-            <Route path='/chat/:id' element={<ChatView />} />
-            <Route path='/settings' element={<SettingsView />} />
+            <Route path="/" exact element={<LoginView />} />
+            <Route path="/home" element={<HomeView />} />
+            <Route path="/chat/:id" element={<ChatView />} />
+            <Route path="/settings" element={<SettingsView />} />
           </Routes>
         </div>
-      </Router>
+      </HashRouter>
     </Provider>
   );
 }

@@ -8,26 +8,26 @@ export default function Navbar() {
   const dispatch = useDispatch();
   const user = useSelector(({ auth }) => auth.user);
   return (
-    <div className='chat-navbar'>
-      <nav className='chat-navbar-inner'>
-        <div className='chat-navbar-inner-left'>
-          <button onClick={() => navigate(-1)} className='btn btn-outline-primary'>
+    <div className="chat-navbar">
+      <nav className="chat-navbar-inner">
+        <div className="chat-navbar-inner-left">
+          <button onClick={() => navigate(-1)} className="btn btn-outline-primary">
             Back
           </button>
-          <button onClick={() => navigate('/settings')} className='btn btn-outline-success ml-2'>
+          <button onClick={() => navigate('/settings')} className="btn btn-outline-success ml-2">
             Settings
           </button>
         </div>
-        <div className='chat-navbar-inner-right'>
-          <span className='logged-in-user'>Hi User</span>
+        <div className="chat-navbar-inner-right">
+          <span className="logged-in-user">Hi User</span>
           {/*           <button onClick={() => navigate('/')} className="btn btn-outline-success ml-2">
             Login
           </button> */}
-          <Link to='/' className='btn btn-outline-success ml-2'>
+          <Link to="/" className="btn btn-outline-success ml-2">
             Login
           </Link>
           {user && (
-            <button onClick={() => dispatch(logout())} className='btn btn-outline-danger ml-2'>
+            <button onClick={() => dispatch(logout())} className="btn btn-outline-danger ml-2">
               Logout
             </button>
           )}
