@@ -1,23 +1,4 @@
-/* import { configureStore } from '@reduxjs/toolkit';
-import { applyMiddleware } from 'redux';
-import thunkMiddleware from 'redux-thunk';
-import authReducer from '../reducers/authReducer';
-import chatReducer from '../reducers/chatReducer';
-
-const rootRedicer = {
-  reducer: {
-    chats: chatReducer,
-    auth: authReducer,
-  },
-};
-
-// const middlewares = [thunkMiddleware];
-
-//combineReducers автоматически применяется в configureStore
-// export const store = configureStore(rootRedicer, applyMiddleware(...middlewares));
-export const store = configureStore(rootRedicer, applyMiddleware(thunkMiddleware));
- */
-
+// import { configureStore } from '@reduxjs/toolkit';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import authReducer from '../reducers/authReducer';
@@ -26,13 +7,17 @@ import chatReducer from '../reducers/chatReducer';
 export default function configureStore() {
   const middlewares = [thunkMiddleware];
 
-  const store = createStore(
-    combineReducers({
-      chats: chatReducer,
-      auth: authReducer,
-    }),
-    applyMiddleware(...middlewares),
-  );
+  const reducer = combineReducers({
+    chats: chatReducer,
+    auth: authReducer,
+  });
+
+  const store = createStore(reducer, applyMiddleware(...middlewares));
+
+  // const store = configureStore({
+  //   reducer,
+  //   middlewares: applyMiddleware(...middlewares),
+  // });
 
   return store;
 }
