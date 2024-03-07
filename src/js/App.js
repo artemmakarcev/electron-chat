@@ -13,6 +13,7 @@ import LoadingView from './components/shared/LoadingView';
 import { HashRouter, Route, Routes, Navigate } from 'react-router-dom';
 
 import { listenToAuthChanges } from './actions/auth';
+import { listenToConnectionChanges } from './actions/app';
 
 function AuthRoute({ children, ...rest }) {
   const user = useSelector(({ auth }) => auth.user);
@@ -33,10 +34,23 @@ const ContentWrapper = ({ children }) => <div className="content-wrapper">{child
 function ChatApp() {
   const dispatch = useDispatch();
   const isChecking = useSelector(({ auth }) => auth.isChecking);
+  const isOnline = useSelector(({ app }) => app.isOnline);
 
   useEffect(() => {
-    dispatch(listenToAuthChanges());
+    const unsubFromAuth = dispatch(listenToAuthChanges());
+    const unsubFromConnection = dispatch(listenToConnectionChanges());
+
+    return () => {
+      unsubFromAuth();
+      unsubFromConnection();
+    };
   }, [dispatch]);
+
+  if (!isOnline) {
+    return (
+      <LoadingView message="Application has been disconnected from the internet. Please reconnect..." />
+    );
+  }
 
   if (isChecking) return <LoadingView />;
 
