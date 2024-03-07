@@ -1,18 +1,18 @@
 // import { configureStore } from '@reduxjs/toolkit';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import authReducer from '../reducers/authReducer';
-import chatReducer from '../reducers/chatReducer';
+import authReducer from '../reducers/auth';
+import chatReducer from '../reducers/chat';
 
 export default function configureStore() {
   const middlewares = [thunkMiddleware];
 
-  const reducer = combineReducers({
+  const reducers = combineReducers({
     chats: chatReducer,
     auth: authReducer,
   });
 
-  const store = createStore(reducer, applyMiddleware(...middlewares));
+  const store = createStore(reducers, applyMiddleware(...middlewares));
 
   // const store = configureStore({
   //   reducer,

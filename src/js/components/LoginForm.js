@@ -14,9 +14,9 @@ export default function LoginForm() {
     dispatch(loginUser(data));
   };
 
-   if (isChecking){
-    return <LoadingView/>
-   }
+  if (isChecking) {
+    return <LoadingView />;
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="centered-container-form">

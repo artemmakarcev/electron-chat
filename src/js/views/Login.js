@@ -13,7 +13,7 @@ export default function Login() {
     : ['Already registered?', 'Login'];
 
   if (user) return <Navigate to="home" />;
-  
+
   return (
     <div className="centered-view">
       <div className="centered-container">

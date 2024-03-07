@@ -1,39 +1,63 @@
 import React, { useEffect } from 'react';
 
-import { Provider } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
+import StoreProvider from './store/StoreProvider';
 
 import HomeView from './views/Home';
 import ChatView from './views/Chat';
 import LoginView from './views/Login';
 import SettingsView from './views/Settings';
+import LoadingView from './components/shared/LoadingView';
 
-import Navbar from './components/Navbar';
-import { HashRouter, Route, Routes } from 'react-router-dom';
-// import {Link} from 'react-router-dom'
-// import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { HashRouter, Route, Routes, Navigate } from 'react-router-dom';
 
-import configureStore from './store';
 import { listenToAuthChanges } from './actions/auth';
-const store = configureStore();
 
-export default function App() {
-  useEffect(() => {
-    store.dispatch(listenToAuthChanges());
-  }, []);
+function AuthRoute({ children, ...rest }) {
+  const user = useSelector(({ auth }) => auth.user);
+  const onlyChild = React.Children.only(children);
 
   return (
-    <Provider store={store}>
-      <HashRouter>
-        <Navbar />
-        <div className="content-wrapper">
-          <Routes>
-            <Route path="/" exact element={<LoginView />} />
-            <Route path="/home" element={<HomeView />} />
-            <Route path="/chat/:id" element={<ChatView />} />
-            <Route path="/settings" element={<SettingsView />} />
-          </Routes>
-        </div>
-      </HashRouter>
-    </Provider>
+    <Route
+      {...rest}
+      element={props =>
+        user ? React.cloneElement(onlyChild, { ...rest, ...props }) : <Navigate to="/" replace />
+      }
+    />
+  );
+}
+
+const ContentWrapper = ({ children }) => <div className="content-wrapper">{children}</div>;
+
+function ChatApp() {
+  const dispatch = useDispatch();
+  const isChecking = useSelector(({ auth }) => auth.isChecking);
+
+  useEffect(() => {
+    dispatch(listenToAuthChanges());
+  }, [dispatch]);
+
+  if (isChecking) return <LoadingView />;
+
+  return (
+    <HashRouter>
+      <ContentWrapper>
+        <Routes>
+          <Route path="/" exact element={<LoginView />} />
+          <Route path="/home" element={<HomeView />} />
+          <Route path="/chat/:id" element={<ChatView />} />
+          <Route path="/settings" element={<SettingsView />} />
+        </Routes>
+      </ContentWrapper>
+    </HashRouter>
+  );
+}
+
+export default function App() {
+  return (
+    <StoreProvider>
+      <ChatApp />
+    </StoreProvider>
   );
 }
