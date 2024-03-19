@@ -1,15 +1,69 @@
-const DEFAULT_STATE = {
-  items: [],
-};
+import { combineReducers } from 'redux';
+import { createReducer, createSlice } from '@reduxjs/toolkit';
 
-const CHATS_FETCH_SUCCESS = 'CHATS_FETCH_SUCCESS';
-
-export default function chatReducer(state = DEFAULT_STATE, action) {
-  switch (action.type) {
-    case CHATS_FETCH_SUCCESS:
-      return { items: action.chats };
-    default: {
-      return state;
+function createChatReducer() {
+  const joined = (state = [], action) => {
+    switch (action.type) {
+      case 'CHATS_FETCH_RESTART':
+        return [];
+      case 'CHATS_FETCH_SUCCESS':
+        return action.joined;
+      case 'CHATS_JOIN_SUCCESS':
+        return [...state, action.chat];
+      default:
+        return state;
     }
-  }
+  };
+  const available = (state = [], action) => {
+    switch (action.type) {
+      case 'CHATS_FETCH_RESTART':
+        return [];
+      case 'CHATS_FETCH_SUCCESS':
+        return action.available;
+      case 'CHATS_JOIN_SUCCESS':
+        return state.filter(chat => chat.id !== action.chat.id);
+      default:
+        return state;
+    }
+  };
+
+  const activeChats = createReducer(
+    {},
+    {
+      CHATS_SET_ACTIVE_CHAT: (state, action) => {
+        const { chat } = action;
+        state[chat.id] = chat;
+      },
+    },
+  );
+
+  const initialState = {};
+
+  /*   const activeChats = createSlice({
+    name: 'active',
+    initialState,
+    reducers: {
+      increment(state, action) {
+        const { chat } = action;
+        state[chat.id] = chat;
+      },
+    },
+  }); */
+
+  const reducers = {
+    joined,
+    available,
+    activeChats,
+  };
+
+  // createSlice({
+  //   reducers: reducers,
+  //   extraReducers: (builder)=>{
+  //     builder.setActive()
+  //   }
+  // });
+
+  return combineReducers(reducers);
 }
+
+export default createChatReducer();

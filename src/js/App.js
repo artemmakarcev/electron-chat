@@ -6,6 +6,7 @@ import StoreProvider from './store/StoreProvider';
 
 import HomeView from './views/Home';
 import ChatView from './views/Chat';
+import ChatCreate from './views/ChatCreate';
 import LoginView from './views/Login';
 import SettingsView from './views/Settings';
 import LoadingView from './components/shared/LoadingView';
@@ -15,18 +16,10 @@ import { HashRouter, Route, Routes, Navigate } from 'react-router-dom';
 import { listenToAuthChanges } from './actions/auth';
 import { listenToConnectionChanges } from './actions/app';
 
-function AuthRoute({ children, ...rest }) {
+function AuthRoute({ children }) {
   const user = useSelector(({ auth }) => auth.user);
-  const onlyChild = React.Children.only(children);
 
-  return (
-    <Route
-      {...rest}
-      element={props =>
-        user ? React.cloneElement(onlyChild, { ...rest, ...props }) : <Navigate to="/" replace />
-      }
-    />
-  );
+  return user ? children : <Navigate to="/" />;
 }
 
 const ContentWrapper = ({ children }) => <div className="content-wrapper">{children}</div>;
@@ -59,9 +52,38 @@ function ChatApp() {
       <ContentWrapper>
         <Routes>
           <Route path="/" exact element={<LoginView />} />
-          <Route path="/home" element={<HomeView />} />
-          <Route path="/chat/:id" element={<ChatView />} />
-          <Route path="/settings" element={<SettingsView />} />
+          <Route
+            path="/home"
+            element={
+              <AuthRoute>
+                <HomeView />
+              </AuthRoute>
+            }
+          />
+          <Route
+            path="/chat/:id"
+            element={
+              <AuthRoute>
+                <ChatView />
+              </AuthRoute>
+            }
+          />
+          <Route
+            path="/chatCreate"
+            element={
+              <AuthRoute>
+                <ChatCreate />
+              </AuthRoute>
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <AuthRoute>
+                <SettingsView />
+              </AuthRoute>
+            }
+          />
         </Routes>
       </ContentWrapper>
     </HashRouter>

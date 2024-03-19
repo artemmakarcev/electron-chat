@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function ChatUsersList() {
+export default function ChatUserList({ users = [] }) {
   return (
     <div className="list-container">
       <div className="chat-search-box">
@@ -9,9 +9,23 @@ export default function ChatUsersList() {
         </div>
       </div>
       <ul className="items">
-        <li onClick={() => {}} className="item">
+        {users.map(user => (
+          <li key={user.uid} className="item">
+            <div className="item-status">
+              <img src={user.avatar} alt="Retail Admin" />
+              <span className="status online"></span>
+            </div>
+            <p className="name-time">
+              <span className="name mr-2">{user.username}</span>
+            </p>
+          </li>
+        ))}
+        {/* <li onClick={() => {}} className="item">
           <div className="item-status">
-            <img src="./src/assets/user-avatar_1.png" alt="Retail Admin" />
+            <img
+              src="https://www.pinclipart.com/picdir/middle/133-1331433_free-user-avatar-icons-happy-flat-design-png.png"
+              alt="Retail Admin"
+            />
             <span className="status online"></span>
           </div>
           <p className="name-time">
@@ -20,7 +34,10 @@ export default function ChatUsersList() {
         </li>
         <li onClick={() => {}} className="item">
           <div className="item-status">
-            <img src="./src/assets/user-avatar_1.png" alt="Retail Admin" />
+            <img
+              src="https://www.pinclipart.com/picdir/middle/133-1331433_free-user-avatar-icons-happy-flat-design-png.png"
+              alt="Retail Admin"
+            />
             <span className="status online"></span>
           </div>
           <p className="name-time">
@@ -29,7 +46,7 @@ export default function ChatUsersList() {
         </li>
         <li onClick={() => {}} className="item">
           <div className="item-status">
-            <img src="./src/assets/user-avatar_2.png" alt="Retail Admin" />
+            <img src="https://i.dlpng.com/static/png/7105396_preview.png" alt="Retail Admin" />
             <span className="status online"></span>
           </div>
           <p className="name-time">
@@ -38,13 +55,13 @@ export default function ChatUsersList() {
         </li>
         <li onClick={() => {}} className="item">
           <div className="item-status">
-            <img src="./src/assets/user-avatar_2.png" alt="Retail Admin" />
+            <img src="https://i.dlpng.com/static/png/7105396_preview.png" alt="Retail Admin" />
             <span className="status online"></span>
           </div>
           <p className="name-time">
             <span className="name mr-2">Some User 4</span>
           </p>
-        </li>
+        </li> */}
       </ul>
     </div>
   );

@@ -13,13 +13,14 @@
   "devDependencies": {
     "@babel/core": "^7.17.9",
     "dotenv-webpack": "^7.1.0",
-    "electron": "^18.1.0",
+    "electron": "^23.1.0",
     "electron-reload": "^2.0.0-alpha.1",
     "node-loader": "^2.0.0"
   },
   "dependencies": {
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
+    "@popperjs/core": "2.11.8",
     "@reduxjs/toolkit": "^1.8.1",
     "babel-loader": "^8.2.5",
     "bootstrap": "^5.1.3",
