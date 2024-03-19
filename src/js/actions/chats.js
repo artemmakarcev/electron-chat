@@ -47,11 +47,11 @@ export const subscribeToChat = chatId => dispatch =>
     );
 
     chat.joinedUsers = joinedUsers;
-    dispatch({ type: 'CHAT_SET_ACTIVE_CHAT', chat });
+    dispatch({ type: 'CHATS_SET_ACTIVE_CHAT', chat });
   });
 
-export const subscribeToProfile = uid => dispatch =>
+export const subscribeToProfile = (uid, chatId) => dispatch =>
   api.subscribeToProfile(uid, user => {
     console.log('changing profile!');
-    dispatch({ type: 'CHATS_UPDATE_USER_STATE'.user });
+    dispatch({ type: 'CHATS_UPDATE_USER_STATE', user, chatId });
   });

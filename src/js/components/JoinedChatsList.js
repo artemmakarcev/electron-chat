@@ -11,7 +11,7 @@ export default function JoinedChatsList({ chats }) {
         {chats.map(chat => (
           <li key={chat.id} onClick={() => navigate(`/chat/${chat.id}`)} className="item">
             <div className="item-status">
-              <img src={chat.image} alt="Retail Admin" />
+              <img src={`./src/assets/${chat.image}`} alt="Retail Admin" />
               <span className="status online"></span>
             </div>
             <p className="name-time">

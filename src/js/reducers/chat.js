@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { createReducer, createSlice } from '@reduxjs/toolkit';
+import { createReducer } from '@reduxjs/toolkit';
 
 function createChatReducer() {
   const joined = (state = [], action) => {
@@ -27,41 +27,30 @@ function createChatReducer() {
     }
   };
 
-  const activeChats = createReducer(
-    {},
-    {
-      CHATS_SET_ACTIVE_CHAT: (state, action) => {
-        const { chat } = action;
-        state[chat.id] = chat;
-      },
-    },
-  );
+  const activeChats = () =>
+    createReducer({}, builder => {
+      builder
+        .addCase('CHATS_SET_ACTIVE_CHAT', (state, action) => {
+          const { chat } = action;
+          state[chat.id] = chat;
+        })
+        .addCase('CHATS_UPDATE_USER_STATE', (state, action) => {
+          const { user, chatId } = action;
+          const joinedUsers = state[chatId].joinedUsers;
+          const index = joinedUsers.findIndex(ju => ju.uid === user.uid);
 
-  const initialState = {};
+          if (index < 0) return state;
+          if (joinedUsers[index].state === user.state) return state;
 
-  /*   const activeChats = createSlice({
-    name: 'active',
-    initialState,
-    reducers: {
-      increment(state, action) {
-        const { chat } = action;
-        state[chat.id] = chat;
-      },
-    },
-  }); */
+          joinedUsers[index].state = user.state;
+        });
+    });
 
   const reducers = {
     joined,
     available,
-    activeChats,
+    activeChats: activeChats(),
   };
-
-  // createSlice({
-  //   reducers: reducers,
-  //   extraReducers: (builder)=>{
-  //     builder.setActive()
-  //   }
-  // });
 
   return combineReducers(reducers);
 }

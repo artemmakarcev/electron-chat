@@ -12,11 +12,6 @@ import Notification from '../utils/notifications';
 
 function Home() {
   const dispatch = useDispatch();
-
-  const chats = useSelector(({ chats }) => chats);
-
-  console.log(chats);
-
   const joinedChats = useSelector(({ chats }) => chats.joined);
   const availableChats = useSelector(({ chats }) => chats.available);
 

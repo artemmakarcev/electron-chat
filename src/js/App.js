@@ -15,6 +15,7 @@ import { HashRouter, Route, Routes, Navigate } from 'react-router-dom';
 
 import { listenToAuthChanges } from './actions/auth';
 import { listenToConnectionChanges } from './actions/app';
+import { checkUserConnection } from './actions/connection';
 
 function AuthRoute({ children }) {
   const user = useSelector(({ auth }) => auth.user);
@@ -32,10 +33,12 @@ function ChatApp() {
   useEffect(() => {
     const unsubFromAuth = dispatch(listenToAuthChanges());
     const unsubFromConnection = dispatch(listenToConnectionChanges());
+    const unsubFromUserConnection = dispatch(checkUserConnection())
 
     return () => {
       unsubFromAuth();
       unsubFromConnection();
+      unsubFromUserConnection();
     };
   }, [dispatch]);
 
