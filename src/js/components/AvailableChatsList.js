@@ -1,13 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 
-import { joinChat } from '../api/chats';
+import { joinChat } from '../actions/chats';
 
 export default function AvailableChatsList({ chats }) {
   const user = useSelector(({ auth }) => auth.user);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const askForConfirmation = chat => {
     const isConfirming = confirm(`Do you want to join the chat: ${chat.name}`);
