@@ -55,3 +55,48 @@ export const subscribeToProfile = (uid, chatId) => dispatch =>
     console.log('changing profile!');
     dispatch({ type: 'CHATS_UPDATE_USER_STATE', user, chatId });
   });
+
+export const sendChatMessage = (message, chatId) => async (dispatch, getState) => {
+  const newMessage = { ...message };
+  const { user } = getState().auth;
+  const userRef = db.doc(`profile/${user.uid}`);
+  newMessage.author = userRef;
+
+  console.log('new message', newMessage);
+
+  return api
+    .sendChatMessage(newMessage, chatId)
+    .then(_ => dispatch({ type: 'CHATS_MESSAGE_SENT' }));
+};
+
+export const subscribeToMessages = chatId => dispatch =>
+  api.subscribeToMessages(chatId, async changes => {
+    const messages = changes.map(change => {
+      if (change.type === 'added') {
+        return { id: change.doc.id, ...change.doc.data() };
+      }
+    });
+
+    const messagesWithAuthor = [];
+    const cache = {};
+
+    for await (let message of messages) {
+      if (cache[message.author.id]) {
+        message.author = cache[message.author.id];
+      } else {
+        const userSnapshot = await message.author.get();
+        cache[userSnapshot.id] = userSnapshot.data();
+        debugger;
+        message.author = cache[userSnapshot.id];
+      }
+      messagesWithAuthor.push(message);
+    }
+
+    dispatch({ type: 'CHATS_SET_MESSAGES', messages: messagesWithAuthor, chatId });
+  });
+
+export const registerMessageSubscription = (chatId, messageSub) => ({
+  type: 'CHATS_REGISTER_MESSAGE_SUB',
+  sub: messageSub,
+  chatId,
+});

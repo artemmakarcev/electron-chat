@@ -16,4 +16,6 @@ const firebaseConfig = {
 // const app = initializeApp(firebaseConfig);
 // const db = getFirestore(app);
 
+export const { Timestamp } = firebase.firestore;
+
 export default firebase.initializeApp(firebaseConfig).firestore();

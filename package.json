@@ -27,6 +27,7 @@
     "css-loader": "^6.7.1",
     "firebase": "^7.19.1",
     "firestore": "^1.1.6",
+    "luxon": "^3.4.4",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-hook-form": "^7.31.2",

@@ -1,6 +1,7 @@
 import React from 'react';
 
 export default function ChatUsersList({ users = [] }) {
+  console.log(users)
   return (
     <div className="list-container">
       <div className="chat-search-box">
@@ -12,8 +13,7 @@ export default function ChatUsersList({ users = [] }) {
         {users.map(user => (
           <li key={user.uid} className="item">
             <div className="item-status">
-              {/* <img src={`./assets/${user.avatar}`} alt="Retail Admin" /> */}
-              <img src="./src/assets/user-avatar_1.png" alt="Retail Admin" />
+              <img src={`./src/assets/${user.avatar}`} alt="Avatar" />
               <span className={`status ${user.state}`}></span>
             </div>
             <p className="name-time">

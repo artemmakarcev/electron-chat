@@ -213,7 +213,7 @@ body {
 }
 
 .items .item p.name-time {
-  font-weight: 600;
+  font-weight: 100;
   font-size: 0.85rem;
   display: inline-block;
 }
@@ -224,8 +224,8 @@ body {
   text-align: right;
   color: #8796af;
 }
-
-@media (max-width: 767px) {
+// @media (max-width: 767px) {
+@media (max-width: 500px) {
   .items .item .item-status img {
     width: 30px;
     height: 30px;
