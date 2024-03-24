@@ -20,10 +20,10 @@ import {
 function Chat() {
   const { id } = useParams();
   const peopleWatchers = useRef({});
+  const messageList = useRef();
   const dispatch = useDispatch();
   const activeChat = useSelector(({ chats }) => chats.activeChats[id]);
   const messages = useSelector(({ chats }) => chats.messages[id]);
-  console.log(messages);
   const messagesSub = useSelector(({ chats }) => chats.messagesSubs[id]);
   const joinedUsers = activeChat?.joinedUsers;
 
@@ -61,7 +61,7 @@ function Chat() {
 
   const sendMessage = useCallback(
     message => {
-      dispatch(sendChatMessage(message, id));
+      dispatch(sendChatMessage(message, id)).then(_ => messageList.current.scrollIntoView(false));
     },
     [id]
   );
@@ -69,11 +69,11 @@ function Chat() {
   if (!activeChat?.id) {
     return <LoadingView message="Loading Chat..." />;
   }
-  console.log(activeChat);
+
   return (
     <div className="row no-gutters fh">
       <div className="col-3 fh">
-        <ChatUsersList users={activeChat?.joinedUsers} />
+        <ChatUsersList innerRef={messageList} users={activeChat?.joinedUsers} />
       </div>
       <div className="col-9 fh">
         <ViewTitle text={`Channel ${activeChat?.name}`} />

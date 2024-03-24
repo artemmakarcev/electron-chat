@@ -1,7 +1,6 @@
 import React from 'react';
 
 export default function ChatUsersList({ users = [] }) {
-  console.log(users)
   return (
     <div className="list-container">
       <div className="chat-search-box">
