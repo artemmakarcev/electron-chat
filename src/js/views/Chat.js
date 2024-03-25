@@ -73,11 +73,11 @@ function Chat() {
   return (
     <div className="row no-gutters fh">
       <div className="col-3 fh">
-        <ChatUsersList innerRef={messageList} users={activeChat?.joinedUsers} />
+        <ChatUsersList users={activeChat?.joinedUsers} />
       </div>
       <div className="col-9 fh">
         <ViewTitle text={`Channel ${activeChat?.name}`} />
-        <ChatMessagesList messages={messages} />
+        <ChatMessagesList innerRef={messageList} messages={messages} />
         <Messenger onSubmit={sendMessage} />
       </div>
     </div>

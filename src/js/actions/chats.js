@@ -70,14 +70,14 @@ export const subscribeToMessages = chatId => dispatch => {
   return api.subscribeToMessages(chatId, async changes => {
     const messages = changes.map(change => {
       if (change.type === 'added') {
-        console.log('Add heard: ', change.doc.data());
+        // console.log('Add heard: ', change.doc.data());
         return { id: change.doc.id, ...change.doc.data() };
       }
       if (change.type === 'modified') {
-        console.log('Modified heard: ', change.doc.data());
+        // console.log('Modified heard: ', change.doc.data());
       }
       if (change.type === 'removed') {
-        console.log('Removed heard: ', change.doc.data());
+        // console.log('Removed heard: ', change.doc.data());
       }
     });
 
