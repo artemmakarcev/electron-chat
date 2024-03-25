@@ -60,6 +60,7 @@ export const sendChatMessage = (message, chatId) => async (dispatch, getState) =
   const { user } = getState().auth;
   const userRef = db.doc(`profiles/${user.uid}`);
   newMessage.author = userRef;
+  newMessage.authorId = user.uid;
   return api
     .sendChatMessage(newMessage, chatId)
     .then(_ => dispatch({ type: 'CHATS_MESSAGE_SENT' }));
@@ -87,9 +88,16 @@ export const subscribeToMessages = chatId => dispatch => {
       if (cache[message.author.id]) {
         message.author = cache[message.author.id];
       } else {
-        const userSnapshot = await message.author.get();
+        const currentUser = await db
+          .collection('profiles')
+          .where('uid', '==', message.authorId)
+          .get();
+        const userSnapshot = currentUser.docs[0];
         cache[userSnapshot.id] = userSnapshot.data();
         message.author = cache[userSnapshot.id];
+        // const userSnapshot = await message.author.get();
+        // cache[userSnapshot.id] = userSnapshot.data();
+        // message.author = cache[userSnapshot.id];
       }
       messagesWithAuthor.push(message);
     }

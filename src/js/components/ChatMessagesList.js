@@ -4,10 +4,8 @@ import { formatTimeAgo } from '../utils/time';
 
 export default function ChatMessagesList({ messages = [], innerRef }) {
   const user = useSelector(({ auth }) => auth.user);
-  const isAuthorOf = useCallback(
-    message =>
-      // message?.author.uid === user.uid ? 'chat-right' : 'chat-left'
-      'chat-right'
+  const isAuthorOf = useCallback(message =>
+    message?.author.uid === user.uid ? 'chat-right' : 'chat-left'
   );
 
   return (
