@@ -1,7 +1,17 @@
 import React from 'react';
 import { withBaseLayout } from '../layouts/Base';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateSettings } from '../actions/settings';
 
 function Settings() {
+  const dispatch = useDispatch();
+
+  const { isDarkTheme, showNotifications, playSound } = useSelector(({ settings }) => settings);
+
+  const handleChange = ({ target: { checked, name } }) => {
+    dispatch(updateSettings(name, checked));
+  };
+
   return (
     <div className="centered-view">
       <div className="centered-container">
@@ -13,15 +23,33 @@ function Settings() {
           <div className="form-container">
             <div className="my-3">
               <div className="form-check">
-                <input name="isDarkTheme" type="checkbox" className="form-check-input" />
+                <input
+                  name="isDarkTheme"
+                  type="checkbox"
+                  className="form-check-input"
+                  checked={isDarkTheme}
+                  onChange={handleChange}
+                />
                 <label className="form-check-label">Dark Theme</label>
               </div>
               <div className="form-check">
-                <input name="showNotifications" type="checkbox" className="form-check-input" />
+                <input
+                  name="showNotifications"
+                  type="checkbox"
+                  className="form-check-input"
+                  checked={showNotifications}
+                  onChange={handleChange}
+                />
                 <label className="form-check-label">Enable Notification</label>
               </div>
               <div className="form-check">
-                <input name="playSound" type="checkbox" className="form-check-input" />
+                <input
+                  name="playSound"
+                  type="checkbox"
+                  className="form-check-input"
+                  checked={playSound}
+                  onChange={handleChange}
+                />
                 <label className="form-check-label">Sound notification</label>
               </div>
             </div>

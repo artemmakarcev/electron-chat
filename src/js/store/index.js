@@ -3,6 +3,7 @@ import thunkMiddleware from 'redux-thunk';
 import authReducer from '../reducers/auth';
 import chatReducer from '../reducers/chat';
 import appReducer from '../reducers/app';
+import settingsReducer from '../reducers/settings';
 
 import appMiddleware from './middlewares/app';
 
@@ -12,6 +13,7 @@ const mainReducer = combineReducers({
   chats: chatReducer,
   auth: authReducer,
   app: appReducer,
+  settings: settingsReducer,
 });
 
 const rootReducer = (state, action) => {
