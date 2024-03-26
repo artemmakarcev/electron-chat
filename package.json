@@ -6,6 +6,12 @@
   "scripts": {
     "start": "electron .",
     "watch": "webpack --config webpack.common.js --watch",
+    "build": "webpack --config webpack.prod.js",
+    "pack": "electron-builder --dir --config electron-builder.json",
+    "dist": "electron-builder --config electron-builder.json",
+    "make:linux": "electron-builder --linux --config electron-builder.json",
+    "make:macos": "electron-builder --mac --config electron-builder.json",
+    "make:win": "electron-builder --win --x64 --config electron-builder.json",
     "prettier": "prettier --write src/js/**/*.js && prettier --write src/js/**/*.scss"
   },
   "author": "Artem Makarcev",
@@ -14,8 +20,10 @@
     "@babel/core": "^7.17.9",
     "dotenv-webpack": "^7.1.0",
     "electron": "^23.1.0",
+    "electron-builder": "^24.13.3",
     "electron-reload": "^2.0.0-alpha.1",
-    "node-loader": "^2.0.0"
+    "node-loader": "^2.0.0",
+    "webpack-merge": "^5.10.0"
   },
   "dependencies": {
     "@babel/preset-env": "^7.16.11",
