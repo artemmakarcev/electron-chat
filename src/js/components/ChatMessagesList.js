@@ -14,7 +14,7 @@ export default function ChatMessagesList({ messages = [], innerRef }) {
         {messages.map(message => (
           <li key={message.id} className={isAuthorOf(message)}>
             <div className="chat-avatar">
-              <img src={`./src/assets/${message?.author?.avatar}`} alt="User avatar" />
+              <img src={`./assets/${message?.author?.avatar}`} alt="User avatar" />
               <div className="chat-name">{message?.author?.username}</div>
             </div>
             <div className="chat-text-wrapper">

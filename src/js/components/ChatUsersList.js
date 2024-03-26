@@ -12,7 +12,7 @@ export default function ChatUsersList({ users = [] }) {
         {users.map(user => (
           <li key={user.uid} className="item">
             <div className="item-status">
-              <img src={`./src/assets/${user.avatar}`} alt="Avatar" />
+              <img src={`./assets/${user.avatar}`} alt="Avatar" />
               <span className={`status ${user.state}`}></span>
             </div>
             <p className="name-time">
